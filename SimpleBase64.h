@@ -6,33 +6,33 @@
 
 typedef std::vector<uint8_t> vec8;
 
-class utf8ToBase64 {
+class sBase64 {
 public:
-	utf8ToBase64(const std::string &utf8);
-	utf8ToBase64(const vec8 &utf8);
-	utf8ToBase64();
-	~utf8ToBase64() = default;
+	sBase64(const std::string &utf8);
+	sBase64(const vec8 &utf8);
+	sBase64();
+	~sBase64() = default;
 
-	utf8ToBase64(const utf8ToBase64&) = delete;
-	utf8ToBase64& operator=(const utf8ToBase64&) = delete;
+	sBase64(const sBase64&) = delete;
+	sBase64& operator=(const sBase64&) = delete;
 
-	utf8ToBase64& encode(const std::string &utf8);
-	utf8ToBase64& encode(const vec8 &utf8);
-	utf8ToBase64& encode();
+	sBase64& encode(const std::string &utf8);
+	sBase64& encode(const vec8 &utf8);
+	sBase64& encode();
 	vec8 getUtf8() const;
-	utf8ToBase64& setUtf8(const vec8 &base64);
-	utf8ToBase64& setUtf8(const std::string &base64);
+	sBase64& setUtf8(const vec8 &base64);
+	sBase64& setUtf8(const std::string &base64);
 
 	vec8 getBase64() const;
 	std::string getBase64String() const;
-	utf8ToBase64& setBase64(const vec8 &base64);
-	utf8ToBase64& setBase64(const std::string &base64);
+	sBase64& setBase64(const vec8 &base64);
+	sBase64& setBase64(const std::string &base64);
 
 	std::string getUtf8String() const;
 
-	utf8ToBase64& decode(const std::string &utf8);
-	utf8ToBase64& decode(const vec8& utf8);
-	utf8ToBase64& decode();
+	sBase64& decode(const std::string &utf8);
+	sBase64& decode(const vec8& utf8);
+	sBase64& decode();
 
 
 private:

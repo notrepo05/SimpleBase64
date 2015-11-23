@@ -1,6 +1,6 @@
 #include "SimpleBase64.h"
 
-uint8_t utf8ToBase64::toBase64Table[] = {
+uint8_t sBase64::toBase64Table[] = {
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
 	'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
 	'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
@@ -9,80 +9,80 @@ uint8_t utf8ToBase64::toBase64Table[] = {
 	'8', '9', '+', '/'
 };
 
-void utf8ToBase64::genFromBase64Table() {
+void sBase64::genFromBase64Table() {
 	for (int i = 0; i < 256; i++)
 		fromBase64Table[i] = 0;
 	for (int i = 0; i < 64; i++)
 		fromBase64Table[toBase64Table[i]] = i;
 }
 
-vec8 utf8ToBase64::getUtf8() const {
+vec8 sBase64::getUtf8() const {
 	return utf8;
 }
 
-std::string utf8ToBase64::getUtf8String() const {
+std::string sBase64::getUtf8String() const {
 	return std::string(utf8.begin(), utf8.end());
 }
 
-std::string utf8ToBase64::getBase64String() const {
+std::string sBase64::getBase64String() const {
 	return std::string(base64.begin(), base64.end());
 }
 
-vec8 utf8ToBase64::getBase64() const {
+vec8 sBase64::getBase64() const {
 	return base64;
 }
-utf8ToBase64& utf8ToBase64::setBase64(const vec8 &base64) {
+sBase64& sBase64::setBase64(const vec8 &base64) {
 	this->base64 = base64;
 	return *this;
 
 }
-utf8ToBase64& utf8ToBase64::setBase64(const std::string &base64) {
+sBase64& sBase64::setBase64(const std::string &base64) {
 	return setBase64(vec8(base64.begin(), base64.end()));
 }
 
-utf8ToBase64& utf8ToBase64::setUtf8(const std::string& utf8) {
+sBase64& sBase64::setUtf8(const std::string& utf8) {
 	return setUtf8(std::vector<uint8_t>(utf8.begin(), utf8.end()));
 }
 
-utf8ToBase64& utf8ToBase64::setUtf8(const vec8 &utf8) {
+sBase64& sBase64::setUtf8(const vec8 &utf8) {
 	this->utf8 = utf8;
 	return *this;
 }
 
 
-utf8ToBase64::utf8ToBase64(const std::string &utf8) : utf8{}, base64{} {
+sBase64::sBase64(const std::string &utf8) : utf8{}, base64{} {
 	setUtf8(utf8);
 	genFromBase64Table();
 }
 
 
-utf8ToBase64::utf8ToBase64() : utf8{}, base64{} {
+sBase64::sBase64() : utf8{}, base64{} {
 	// build table for translating from base64 to utf8
 	genFromBase64Table();
 }
 
 
-utf8ToBase64::utf8ToBase64(const vec8 &utf8) : utf8{}, base64{} {
+sBase64::sBase64(const vec8 &utf8) : utf8{}, base64{} {
 	setUtf8(utf8);
 	genFromBase64Table();
 }
 
-utf8ToBase64& utf8ToBase64::encode(const std::string &utf8) {
+sBase64& sBase64::encode(const std::string &utf8) {
 	setUtf8(utf8);
 	return encode();
 }
 
-utf8ToBase64& utf8ToBase64::encode(const vec8 &utf8) {
+sBase64& sBase64::encode(const vec8 &utf8) {
 	setUtf8(utf8);
 	return encode();
 }
 
-utf8ToBase64& utf8ToBase64::encode() {
+sBase64& sBase64::encode() {
 	setBase64(encode_());
 	return *this;
 }
 // build the base64 vector
-vec8 utf8ToBase64::encode_(void) {
+vec8 sBase64::encode_(void) {
 	vec8 result;
 
 	auto part = utf8.begin();
@@ -98,16 +98,16 @@ vec8 utf8ToBase64::encode_(void) {
 	}
 	return result;
 }
-utf8ToBase64&  utf8ToBase64::decode(const std::string& base64) {
+sBase64&  sBase64::decode(const std::string& base64) {
 	auto res = vec8(base64.begin(), base64.end());
 	return decode(res);
 
 }
-utf8ToBase64&  utf8ToBase64::decode() {
+sBase64&  sBase64::decode() {
 	return decode(this->base64);
 }
 
-utf8ToBase64&  utf8ToBase64::decode(const vec8 &base64) {
+sBase64&  sBase64::decode(const vec8 &base64) {
 	if ((base64.size() % 4) != 0)
 		throw new std::invalid_argument("base64 must be a multiple of 4 length");
 	vec8 result;
@@ -124,7 +124,7 @@ utf8ToBase64&  utf8ToBase64::decode(const vec8 &base64) {
 }
 
 
-vec8 utf8ToBase64::decode_(vec8 &x) {
+vec8 sBase64::decode_(vec8 &x) {
 	if (x.size() != 4) 
 		throw new std::invalid_argument("x must be of size 4");
 	
@@ -162,7 +162,7 @@ vec8 utf8ToBase64::decode_(vec8 &x) {
 
 
 
-vec8 utf8ToBase64::threeTo64(vec8 x) {
+vec8 sBase64::threeTo64(vec8 x) {
 	if (x.empty()) return vec8();
 	// we calculate the amount of padding necessary
 	int padding = (x.size() % 3) != 0 ? 3 - x.size() : 0;
