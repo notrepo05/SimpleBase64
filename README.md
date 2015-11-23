@@ -20,11 +20,9 @@ int main(void) {
 
 	std::string test1{ "♀ ♁ ♂ ♃ ♄ ♅ ♆ ♇ ♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓ ♔ ♕ ♖ ♗ ♘ ♙ ♚ ♛ ♜ ♝ ♞ ♟" },
 		test2{ "- × ÷ ± ∞ π ∅ ≤ ≥ ≠ ≈ ∧ ∨ ∩ ∪ ∈ ∀ ∃ ∄ ∑ ∏ ← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙ ↺ ↻ ⇒ ⇔" };
-	// setUf8(std::string()) is unnecessary
-	b64.setUtf8(std::string());
-	std::cout << std::boolalpha << (b64.encode(test1).decode().getUtf8String() == test1) << std::endl;
-	b64.setUtf8(std::string());
-	std::cout << std::boolalpha << (b64.encode(test2).decode().getUtf8String() == test2) << std::endl;
+	// the setUf8(std::string()) operations are unnecessary
+	std::cout << std::boolalpha << (b64.encode(test1).setUtf8(std::string()).decode().getUtf8String() == test1) << std::endl;
+	std::cout << std::boolalpha << (b64.encode(test2).setUtf8(std::string()).decode().getUtf8String() == test2) << std::endl;
 
 	return EXIT_SUCCESS;
 }
