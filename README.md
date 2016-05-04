@@ -1,7 +1,7 @@
 # SimpleBase64
 Simple base64 encoding and decoding without validation. 
 
-*This class has received little testing (need to add unit tests): use with caution.*
+*This class has received little testing (need to add unit tests): use with caution. Edit: This code has been extensively tested encoding and decoding large executables and tested for corner cases.*
 # Example Uses
 
 ```cpp
